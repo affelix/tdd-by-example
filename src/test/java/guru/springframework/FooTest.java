@@ -14,4 +14,12 @@ class FooTest {
 
         assertEquals("FooBar", result);
     }
+
+    @Test
+    void getName() {
+
+        String result = Foo.getName();
+
+        assertEquals("Andre", result);
+    }
 }

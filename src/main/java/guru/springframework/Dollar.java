@@ -1,8 +1,8 @@
 package guru.springframework;
 
-public class Dollar {
+import java.util.Objects;
 
-    int amount;
+public class Dollar extends Money {
 
     public Dollar(int amount) {
         this.amount = amount;
@@ -11,4 +11,5 @@ public class Dollar {
     Dollar times(int multiplier) {
         return new Dollar(amount * multiplier);
     }
+
 }

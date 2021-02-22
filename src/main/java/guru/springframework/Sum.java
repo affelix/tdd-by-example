@@ -5,17 +5,28 @@ import lombok.Getter;
 public class Sum implements Expression {
 
     @Getter
-    private Money augmend;
+    private final Expression augmend;
     @Getter
-    private Money addmend;
+    private final Expression addmend;
 
-    public Sum(Money augmend, Money addmend) {
+    public Sum(Expression augmend, Expression addmend) {
         this.augmend = augmend;
         this.addmend = addmend;
     }
 
-    public Money reduce(String to) {
-        int amount = augmend.amount + addmend.amount;
+    @Override
+    public Money reduce(Bank bank, String to) {
+        int amount = augmend.reduce(bank, to).getAmount() + addmend.reduce(bank, to).getAmount();
         return new Money(amount, to);
+    }
+
+    @Override
+    public Expression plus(Expression tenFrancs) {
+        return new Sum(this, addmend);
+    }
+
+    @Override
+    public Expression times(int multiplier) {
+        return new Sum(augmend.times(multiplier), addmend.times(multiplier));
     }
 }

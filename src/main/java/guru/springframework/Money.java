@@ -1,12 +1,15 @@
 package guru.springframework;
 
+import lombok.Getter;
 import lombok.ToString;
 
 @ToString()
 public class Money implements Expression {
 
-    protected int amount;
-    protected String currency;
+    @Getter
+    private int amount;
+    @Getter
+    private final String currency;
 
     public Money(int amount, String currency) {
         this.amount = amount;
@@ -25,17 +28,19 @@ public class Money implements Expression {
         return currency;
     }
 
-    public Money times(int multiplier) {
+    @Override
+    public Expression times(int multiplier) {
         return new Money(amount * multiplier, this.currency);
     }
 
-    public Expression plus(Money addend) {
+    @Override
+    public Expression plus(Expression addend) {
         return new Sum(this, addend);
     }
 
     @Override
-    public Money reduce(String to) {
-        return this;
+    public Money reduce(Bank bank, String to) {
+        return new Money(amount / bank.rate(this.currency, to), to);
     }
 
     /**

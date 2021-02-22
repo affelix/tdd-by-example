@@ -17,3 +17,8 @@ For questions and help:
 * Or post in the Slack Community exclusive to the course.
 
 GitHub Issues will not be addressed.
+
+## Section 3 - TDD
+
+It is a good practice to don't instantiate objects on the Test Class, and for that, the factory method used in design
+patterns comes in handy (i.e. avoid direct referencing);
